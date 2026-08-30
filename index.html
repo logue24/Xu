@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máy Kiếm Xu</title>
+<meta name="description" content="Điểm danh và nhận xu mỗi ngày trên chiếc máy xu phong cách thùng máy giải trí.">
+<meta name="theme-color" content="#1B2430">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="arcade-room">
+  <div class="cabinet">
+    <div id="srBalanceAnnounce" class="sr-only" aria-live="polite"></div>
+
+    <header class="marquee">
+      <div class="marquee-lights" aria-hidden="true"></div>
+      <h1 class="marquee-title">MÁY KIẾM XU</h1>
+      <p class="marquee-sub">Điểm danh · Nhận xu · Tích lũy</p>
+    </header>
+
+    <div class="coin-slot-row" aria-hidden="true">
+      <span class="coin-slot"></span>
+      <span class="coin-slot-label">KHE NHẬN XU</span>
+      <span class="coin-slot"></span>
+    </div>
+
+    <section class="screen-panel">
+      <div class="screen-glass">
+        <div class="odometer" id="odometer" aria-hidden="true">0</div>
+        <div class="xu-label" aria-hidden="true">XU</div>
+        <div class="vnd-equiv" aria-hidden="true">≈ <span id="vndEquiv">0</span> ₫</div>
+        <div class="streak-row" aria-hidden="true">
+          <span class="streak-flame">🔥</span>
+          <span id="streakDisplay">Chuỗi điểm danh: 0 ngày</span>
+        </div>
+      </div>
+      <div class="coin-tray" id="coinTray" aria-hidden="true"></div>
+    </section>
+
+    <section class="controls">
+      <button class="machine-btn" id="checkinBtn" type="button">
+        <span class="btn-icon" aria-hidden="true">📅</span>
+        <span id="checkinBtnText">Điểm Danh Hôm Nay</span>
+      </button>
+      <button class="machine-btn" id="claimBtn" type="button">
+        <span class="btn-icon" aria-hidden="true">🪙</span>
+        <span id="claimBtnText">Nhận Xu</span>
+      </button>
+    </section>
+
+    <section class="tasks-panel">
+      <h2 class="panel-title">Nhiệm Vụ</h2>
+      <ul class="task-list">
+        <li class="task-item" id="taskFirstCheckin">
+          <span class="task-check" aria-hidden="true"></span>
+          <span class="task-text">Điểm danh lần đầu tiên</span>
+          <span class="task-reward">+50 xu</span>
+          <span class="task-status sr-only"></span>
+        </li>
+        <li class="task-item" id="taskClaim5">
+          <span class="task-check" aria-hidden="true"></span>
+          <span class="task-text">Nhận xu 5 lần</span>
+          <span class="task-reward">+100 xu</span>
+          <span class="task-status sr-only"></span>
+        </li>
+        <li class="task-item" id="taskReach500">
+          <span class="task-check" aria-hidden="true"></span>
+          <span class="task-text">Đạt mốc 500 xu</span>
+          <span class="task-reward">+50 xu</span>
+          <span class="task-status sr-only"></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="receipt-panel">
+      <h2 class="panel-title">Phiếu Giao Dịch</h2>
+      <div class="receipt-paper">
+        <div class="receipt-perf" aria-hidden="true"></div>
+        <ol class="receipt-list" id="historyList"></ol>
+        <p class="receipt-empty" id="historyEmpty">Chưa có giao dịch nào.</p>
+      </div>
+    </section>
+
+    <footer class="machine-footer">
+      <p class="rate-note">Tỷ giá quy đổi: 1.000 xu = 100 ₫</p>
+      <p class="demo-note">Xu là đơn vị ảo dùng để minh họa trên trang này, không có giá trị quy đổi hoặc rút tiền thực tế.</p>
+      <button class="reset-btn" id="resetBtn" type="button">Đặt Lại Dữ Liệu</button>
+    </footer>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
