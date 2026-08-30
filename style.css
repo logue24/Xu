@@ -260,12 +260,16 @@ body {
   100% { transform: translate(-50%, -34px); opacity: 0; }
 }
 
-/* Tasks & receipt panels */
-.tasks-panel, .receipt-panel {
+/* Shared dark panels: tasks, receipt, shop */
+.tasks-panel, .receipt-panel, .shop-panel {
   background: rgba(0, 0, 0, 0.18);
   border-radius: 16px;
   padding: 14px 14px 6px;
   margin-bottom: 16px;
+}
+
+.shop-panel {
+  padding-bottom: 14px;
 }
 
 .panel-title {
@@ -277,6 +281,96 @@ body {
   text-transform: uppercase;
 }
 
+.shop-note {
+  font-size: 0.72rem;
+  color: rgba(240, 230, 210, 0.6);
+  margin: -2px 0 12px;
+  line-height: 1.4;
+}
+
+.pkg-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pkg-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(240, 230, 210, 0.15);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.pkg-card.is-owned {
+  border-color: var(--coin-gold);
+}
+
+.pkg-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: var(--cabinet-navy);
+  background: #cd7f32;
+  margin-bottom: 8px;
+}
+
+#pkgSilver .pkg-badge {
+  background: #c7cdd6;
+}
+
+#pkgGold .pkg-badge {
+  background: var(--coin-gold);
+}
+
+.pkg-price {
+  font-family: var(--font-digital);
+  font-size: 1.3rem;
+  color: var(--screen-amber);
+  margin: 0 0 8px;
+}
+
+.pkg-perks {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: 0.8rem;
+  color: rgba(240, 230, 210, 0.85);
+}
+
+.pkg-perks li {
+  padding: 2px 0;
+}
+
+.pkg-perks li::before {
+  content: "• ";
+  color: var(--coin-gold);
+}
+
+.pkg-buy-btn {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--coin-gold);
+  color: #2a1c02;
+  cursor: pointer;
+}
+
+.pkg-buy-btn:disabled {
+  background: rgba(240, 230, 210, 0.15);
+  color: rgba(240, 230, 210, 0.5);
+  cursor: default;
+}
+
+/* Tasks */
 .task-list {
   list-style: none;
   margin: 0;
@@ -416,23 +510,46 @@ body {
 .demo-note {
   font-size: 0.72rem;
   color: rgba(240, 230, 210, 0.55);
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   line-height: 1.4;
 }
 
-.reset-btn {
+.storage-warning {
+  font-size: 0.75rem;
+  color: #ffb4b4;
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+
+.data-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.data-btn {
   background: transparent;
-  border: 1px solid rgba(198, 46, 61, 0.6);
-  color: rgba(255, 214, 214, 0.85);
+  border: 1px solid rgba(240, 230, 210, 0.35);
+  color: rgba(240, 230, 210, 0.85);
   font-family: var(--font-body);
   font-size: 0.78rem;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
-.reset-btn:hover {
+.data-btn:hover {
+  background: rgba(240, 230, 210, 0.12);
+}
+
+.data-btn.danger {
+  border-color: rgba(198, 46, 61, 0.6);
+  color: rgba(255, 214, 214, 0.85);
+}
+
+.data-btn.danger:hover {
   background: rgba(198, 46, 61, 0.18);
 }
 
@@ -468,5 +585,11 @@ button:focus-visible {
   }
   .odometer {
     font-size: 3.1rem;
+  }
+  .pkg-grid {
+    flex-direction: row;
+  }
+  .pkg-card {
+    flex: 1 1 0;
   }
 }

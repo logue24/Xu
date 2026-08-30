@@ -52,6 +52,43 @@
       </button>
     </section>
 
+    <section class="shop-panel">
+      <h2 class="panel-title">Cửa Hàng Nâng Cấp</h2>
+      <p class="shop-note">Gói nâng cấp mô phỏng (demo) trong ứng dụng — chưa kết nối cổng thanh toán thật, sẽ không trừ tiền thật khi bấm mua.</p>
+      <div class="pkg-grid">
+        <div class="pkg-card" id="pkgBronze">
+          <span class="pkg-badge">ĐỒNG</span>
+          <p class="pkg-price">10.000 ₫</p>
+          <ul class="pkg-perks">
+            <li>+300 xu ngay</li>
+            <li>Giảm hồi chiêu 3 giây</li>
+            <li>+5 xu mỗi lần nhận</li>
+          </ul>
+          <button class="pkg-buy-btn" id="pkgBronzeBuyBtn" type="button">Mua</button>
+        </div>
+        <div class="pkg-card" id="pkgSilver">
+          <span class="pkg-badge">BẠC</span>
+          <p class="pkg-price">25.000 ₫</p>
+          <ul class="pkg-perks">
+            <li>+800 xu ngay</li>
+            <li>Giảm hồi chiêu 5 giây</li>
+            <li>+10 xu mỗi lần nhận</li>
+          </ul>
+          <button class="pkg-buy-btn" id="pkgSilverBuyBtn" type="button">Mua</button>
+        </div>
+        <div class="pkg-card" id="pkgGold">
+          <span class="pkg-badge">VÀNG</span>
+          <p class="pkg-price">50.000 ₫</p>
+          <ul class="pkg-perks">
+            <li>+2.000 xu ngay</li>
+            <li>Giảm hồi chiêu 7 giây</li>
+            <li>+15 xu mỗi lần nhận</li>
+          </ul>
+          <button class="pkg-buy-btn" id="pkgGoldBuyBtn" type="button">Mua</button>
+        </div>
+      </div>
+    </section>
+
     <section class="tasks-panel">
       <h2 class="panel-title">Nhiệm Vụ</h2>
       <ul class="task-list">
@@ -87,8 +124,14 @@
 
     <footer class="machine-footer">
       <p class="rate-note">Tỷ giá quy đổi: 1.000 xu = 100 ₫</p>
-      <p class="demo-note">Xu là đơn vị ảo dùng để minh họa trên trang này, không có giá trị quy đổi hoặc rút tiền thực tế.</p>
-      <button class="reset-btn" id="resetBtn" type="button">Đặt Lại Dữ Liệu</button>
+      <p class="demo-note">Xu là đơn vị ảo dùng để minh họa trên trang này, không có giá trị quy đổi hoặc rút tiền thực tế. Các gói nâng cấp ở trên cũng là mô phỏng, chưa thu tiền thật.</p>
+      <p class="storage-warning" id="storageWarning" style="display:none;">⚠ Trình duyệt đang chặn lưu tự động — hãy bấm "Sao Lưu" thường xuyên để không mất dữ liệu.</p>
+      <div class="data-actions">
+        <button class="data-btn" id="exportBtn" type="button">Sao Lưu</button>
+        <button class="data-btn" id="importBtn" type="button">Khôi Phục</button>
+        <button class="data-btn danger" id="resetBtn" type="button">Đặt Lại</button>
+      </div>
+      <input type="file" id="importFileInput" accept="application/json,.json" class="sr-only" aria-label="Chọn file sao lưu để khôi phục">
     </footer>
   </div>
 </div>
