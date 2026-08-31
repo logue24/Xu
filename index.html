@@ -3,138 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Máy Kiếm Xu</title>
-<meta name="description" content="Điểm danh và nhận xu mỗi ngày trên chiếc máy xu phong cách thùng máy giải trí.">
-<meta name="theme-color" content="#1B2430">
+<meta name="theme-color" content="#120A1F">
+<meta name="description" content="Nhấp để kiếm xu — trò chơi arcade vui nhộn, nâng cấp máy để kiếm xu nhanh hơn.">
+<title>Máy Kiếm Xu — Nhấp Để Kiếm Tiền</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="arcade-room">
-  <div class="cabinet">
-    <div id="srBalanceAnnounce" class="sr-only" aria-live="polite"></div>
+<div class="app">
 
-    <header class="marquee">
-      <div class="marquee-lights" aria-hidden="true"></div>
-      <h1 class="marquee-title">MÁY KIẾM XU</h1>
-      <p class="marquee-sub">Điểm danh · Nhận xu · Tích lũy</p>
-    </header>
-
-    <div class="coin-slot-row" aria-hidden="true">
-      <span class="coin-slot"></span>
-      <span class="coin-slot-label">KHE NHẬN XU</span>
-      <span class="coin-slot"></span>
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🪙</span>
+      <span class="logo-text">MÁY KIẾM XU</span>
     </div>
+    <div class="save-indicator" id="saveIndicator" title="Tự động lưu dữ liệu">
+      <span class="save-dot"></span>
+      <span class="save-label">Tự động lưu</span>
+    </div>
+    <button class="reset-btn" id="resetBtn" type="button" title="Chơi lại từ đầu" aria-label="Chơi lại từ đầu">↺</button>
+  </header>
 
-    <section class="screen-panel">
-      <div class="screen-glass">
-        <div class="odometer" id="odometer" aria-hidden="true">0</div>
-        <div class="xu-label" aria-hidden="true">XU</div>
-        <div class="vnd-equiv" aria-hidden="true">≈ <span id="vndEquiv">0</span> ₫</div>
-        <div class="streak-row" aria-hidden="true">
-          <span class="streak-flame">🔥</span>
-          <span id="streakDisplay">Chuỗi điểm danh: 0 ngày</span>
-        </div>
-      </div>
-      <div class="coin-tray" id="coinTray" aria-hidden="true"></div>
-    </section>
+  <section class="balance-panel">
+    <div class="xu-display">
+      <div class="xu-number" id="xuAmount">0</div>
+      <div class="xu-unit">xu</div>
+    </div>
+    <div class="equiv-line">≈ <span id="usdAmount">0</span>$</div>
+    <div class="rate-line">Tỷ giá quy ước: 1 xu = 0,01$</div>
+    <div class="persec-line" id="xuPerSecondDisplay" hidden>
+      +<span id="xuPerSecondAmount">0</span> xu / giây
+    </div>
+  </section>
 
-    <section class="controls">
-      <button class="machine-btn" id="checkinBtn" type="button">
-        <span class="btn-icon" aria-hidden="true">📅</span>
-        <span id="checkinBtnText">Điểm Danh Hôm Nay</span>
-      </button>
-      <button class="machine-btn" id="claimBtn" type="button">
-        <span class="btn-icon" aria-hidden="true">🪙</span>
-        <span id="claimBtnText">Nhận Xu</span>
-      </button>
-    </section>
+  <section class="machine-zone">
+    <div class="floating-numbers" id="floatingNumbers" aria-hidden="true"></div>
+    <button class="coin-machine" id="clickMachine" type="button" aria-label="Nhấp để kiếm xu">
+      <span class="coin-face">
+        <span class="coin-power" id="clickPowerDisplay">+1</span>
+      </span>
+    </button>
+    <div class="tap-hint">Chạm vào đồng xu để kiếm xu</div>
+  </section>
 
-    <section class="shop-panel">
-      <h2 class="panel-title">Cửa Hàng Nâng Cấp</h2>
-      <p class="shop-note">Gói nâng cấp mô phỏng (demo) trong ứng dụng — chưa kết nối cổng thanh toán thật, sẽ không trừ tiền thật khi bấm mua.</p>
-      <div class="pkg-grid">
-        <div class="pkg-card" id="pkgBronze">
-          <span class="pkg-badge">ĐỒNG</span>
-          <p class="pkg-price">10.000 ₫</p>
-          <ul class="pkg-perks">
-            <li>+300 xu ngay</li>
-            <li>Giảm hồi chiêu 3 giây</li>
-            <li>+5 xu mỗi lần nhận</li>
-          </ul>
-          <button class="pkg-buy-btn" id="pkgBronzeBuyBtn" type="button">Mua</button>
-        </div>
-        <div class="pkg-card" id="pkgSilver">
-          <span class="pkg-badge">BẠC</span>
-          <p class="pkg-price">25.000 ₫</p>
-          <ul class="pkg-perks">
-            <li>+800 xu ngay</li>
-            <li>Giảm hồi chiêu 5 giây</li>
-            <li>+10 xu mỗi lần nhận</li>
-          </ul>
-          <button class="pkg-buy-btn" id="pkgSilverBuyBtn" type="button">Mua</button>
-        </div>
-        <div class="pkg-card" id="pkgGold">
-          <span class="pkg-badge">VÀNG</span>
-          <p class="pkg-price">50.000 ₫</p>
-          <ul class="pkg-perks">
-            <li>+2.000 xu ngay</li>
-            <li>Giảm hồi chiêu 7 giây</li>
-            <li>+15 xu mỗi lần nhận</li>
-          </ul>
-          <button class="pkg-buy-btn" id="pkgGoldBuyBtn" type="button">Mua</button>
-        </div>
-      </div>
-    </section>
+  <nav class="tabs">
+    <button class="tab-btn active" type="button" data-tab="panel-click">💪 Sức Nhấp</button>
+    <button class="tab-btn" type="button" data-tab="panel-auto">⚙️ Tự Động</button>
+    <button class="tab-btn" type="button" data-tab="panel-stats">📊 Thống Kê</button>
+  </nav>
 
-    <section class="tasks-panel">
-      <h2 class="panel-title">Nhiệm Vụ</h2>
-      <ul class="task-list">
-        <li class="task-item" id="taskFirstCheckin">
-          <span class="task-check" aria-hidden="true"></span>
-          <span class="task-text">Điểm danh lần đầu tiên</span>
-          <span class="task-reward">+50 xu</span>
-          <span class="task-status sr-only"></span>
-        </li>
-        <li class="task-item" id="taskClaim5">
-          <span class="task-check" aria-hidden="true"></span>
-          <span class="task-text">Nhận xu 5 lần</span>
-          <span class="task-reward">+100 xu</span>
-          <span class="task-status sr-only"></span>
-        </li>
-        <li class="task-item" id="taskReach500">
-          <span class="task-check" aria-hidden="true"></span>
-          <span class="task-text">Đạt mốc 500 xu</span>
-          <span class="task-reward">+50 xu</span>
-          <span class="task-status sr-only"></span>
-        </li>
-      </ul>
-    </section>
+  <div class="tab-panels">
+    <div class="tab-content active" id="panel-click">
+      <div class="upgrade-list" id="clickUpgradeList"></div>
+    </div>
+    <div class="tab-content" id="panel-auto">
+      <div class="upgrade-list" id="autoUpgradeList"></div>
+    </div>
+    <div class="tab-content" id="panel-stats">
+      <div class="stats-list" id="statsList"></div>
+    </div>
+  </div>
 
-    <section class="receipt-panel">
-      <h2 class="panel-title">Phiếu Giao Dịch</h2>
-      <div class="receipt-paper">
-        <div class="receipt-perf" aria-hidden="true"></div>
-        <ol class="receipt-list" id="historyList"></ol>
-        <p class="receipt-empty" id="historyEmpty">Chưa có giao dịch nào.</p>
-      </div>
-    </section>
+  <footer class="footer-note">
+    Xu là tiền ảo chỉ dùng trong trò chơi này, không có giá trị quy đổi hay giao dịch thực tế.
+  </footer>
 
-    <footer class="machine-footer">
-      <p class="rate-note">Tỷ giá quy đổi: 1.000 xu = 100 ₫</p>
-      <p class="demo-note">Xu là đơn vị ảo dùng để minh họa trên trang này, không có giá trị quy đổi hoặc rút tiền thực tế. Các gói nâng cấp ở trên cũng là mô phỏng, chưa thu tiền thật.</p>
-      <p class="storage-warning" id="storageWarning" style="display:none;">⚠ Trình duyệt đang chặn lưu tự động — hãy bấm "Sao Lưu" thường xuyên để không mất dữ liệu.</p>
-      <div class="data-actions">
-        <button class="data-btn" id="exportBtn" type="button">Sao Lưu</button>
-        <button class="data-btn" id="importBtn" type="button">Khôi Phục</button>
-        <button class="data-btn danger" id="resetBtn" type="button">Đặt Lại</button>
-      </div>
-      <input type="file" id="importFileInput" accept="application/json,.json" class="sr-only" aria-label="Chọn file sao lưu để khôi phục">
-    </footer>
+</div>
+
+<div class="modal-overlay" id="welcomeModal" hidden>
+  <div class="modal-box">
+    <div class="modal-icon">👋</div>
+    <h2>Chào mừng trở lại!</h2>
+    <p id="welcomeMessage"></p>
+    <button class="modal-btn primary" id="closeWelcomeModal" type="button">Tuyệt vời!</button>
   </div>
 </div>
+
+<div class="modal-overlay" id="resetModal" hidden>
+  <div class="modal-box">
+    <div class="modal-icon">⚠️</div>
+    <h2>Chơi lại từ đầu?</h2>
+    <p>Toàn bộ xu và nâng cấp hiện tại sẽ bị xóa vĩnh viễn. Bạn chắc chắn chứ?</p>
+    <div class="modal-actions">
+      <button class="modal-btn ghost" id="cancelResetBtn" type="button">Hủy</button>
+      <button class="modal-btn danger" id="confirmResetBtn" type="button">Xóa hết</button>
+    </div>
+  </div>
+</div>
+
+<div id="saveToast"></div>
 
 <script src="script.js"></script>
 </body>
